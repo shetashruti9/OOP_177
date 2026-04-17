@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+class College {
+    String collegeName;
+
+    public College(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    class Admission {
+        String studentName;
+        String course;
+
+        public void accept() {
+            Scanner sc = new Scanner(System.in);
+            studentName = sc.nextLine();
+            course = sc.nextLine();
+        }
+
+        public void display() {
+            System.out.println("College Name: " + collegeName);
+            System.out.println("Student Name: " + studentName);
+            System.out.println("Course: " + course);
+        }
+    }
+
+    public static void main(String[] args) {
+        College c = new College("SSASIT");
+
+        College.Admission a = c.new Admission();
+
+        a.accept();
+        a.display();
+    }
+}
