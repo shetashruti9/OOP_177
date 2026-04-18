@@ -1,0 +1,46 @@
+class NumberPrinter implements Runnable {
+    private int start;
+    private int end;
+    private int delay;
+    private String threadName;
+
+    public NumberPrinter(String threadName, int start, int end, int delay) {
+        this.threadName = threadName;
+        this.start = start;
+        this.end = end;
+        this.delay = delay;
+    }
+
+    public void run() {
+        for (int i = start; i <= end; i++) {
+            System.out.println(threadName + " -> " + i);
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                System.out.println(threadName + " interrupted");
+            }
+        }
+        System.out.println(threadName + " completed");
+    }
+}
+
+public class MultiThreadDemo {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new NumberPrinter("Thread-1 (1-10)", 1, 10, 1000));
+        Thread t2 = new Thread(new NumberPrinter("Thread-2 (11-20)", 11, 20, 500));
+
+        System.out.println("Starting threads...\n");
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+
+        System.out.println("\nAll threads finished execution");
+    }
+}
